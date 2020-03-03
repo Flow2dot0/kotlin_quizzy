@@ -10,6 +10,8 @@ import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
 
+    val TAG = "HOME"
+
     val levels =
         arrayOf("Newbie", "Between", "GOD")
     var selectedLevelIndex = 0
@@ -36,7 +38,7 @@ class HomeActivity : AppCompatActivity() {
             when (which) {
                 0 -> {
                     selectedLevelIndex = which
-                    Log.i("HOME", "Current level selected : $selectedLevelIndex")
+                    Log.i(TAG, "Current level selected : $selectedLevelIndex")
 
                     Toast.makeText(
                         this@HomeActivity,
@@ -47,7 +49,7 @@ class HomeActivity : AppCompatActivity() {
 
                 1 -> {
                     selectedLevelIndex = which
-                    Log.i("HOME", "Current level selected : $selectedLevelIndex")
+                    Log.i(TAG, "Current level selected : $selectedLevelIndex")
 
                     Toast.makeText(
                         this@HomeActivity,
@@ -57,7 +59,7 @@ class HomeActivity : AppCompatActivity() {
                 }
                 2 -> {
                     selectedLevelIndex = which
-                    Log.i("HOME", "Current level selected : $selectedLevelIndex")
+                    Log.i(TAG, "Current level selected : $selectedLevelIndex")
 
                     Toast.makeText(
                         this@HomeActivity,
