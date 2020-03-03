@@ -4,6 +4,101 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/backgroundColor"
     tools:context=".ResultsActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="350dp"
+        android:background="@drawable/brain"
+        android:backgroundTint="#D0FFFFFF"
+        android:backgroundTintMode="src_over"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.603"></androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/boxResults"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="60dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/resultsPourcentage"
+        >
+        <TextView
+            android:id="@+id/resultsLevelTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LEVEL : "
+            android:textAlignment="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <TextView
+            android:id="@+id/resultsLevelStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GOD"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:textAlignment="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+        <TextView
+            android:id="@+id/correctAnswersTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CORRECT ANSWERS : "
+            android:textAlignment="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+        <TextView
+            android:id="@+id/correctAnswersStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:text=" 1 / 2"
+            android:textAlignment="center"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView
+        android:id="@+id/resultsPourcentage"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="50 %"
+        android:textAlignment="center"
+        android:textColor="@color/themeColor"
+        android:textSize="80sp"
+        app:layout_constraintTop_toBottomOf="@id/boxResults"
+        app:layout_constraintBottom_toTopOf="@id/resultsExtraText"
+        />
+
+    <TextView
+        android:id="@+id/resultsExtraText"
+        android:layout_marginBottom="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="of success"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:textColor="@color/themeColor"
+        app:layout_constraintTop_toBottomOf="@id/resultsPourcentage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,7 +32,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         aboutButton.setOnClickListener {
-            val intent = Intent(this, GameActivity::class.java)
+            val intent = Intent(this, CreditsActivity::class.java)
             startActivity(intent)
         }
     }

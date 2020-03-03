@@ -23,6 +23,7 @@
 
     <TextView
         android:id="@+id/creditsTitle"
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Quizzy"
@@ -31,7 +32,7 @@
         android:textSize="80sp"
         app:layout_constraintBottom_toTopOf="@id/creditsContributors"
         app:layout_constraintTop_toTopOf="parent"
-
+        app:layout_constraintVertical_chainStyle="spread_inside"
         />
 
     <TextView
@@ -45,9 +46,11 @@
 
     <TextView
         android:id="@+id/creditsVersioning"
+        android:layout_marginBottom="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Version 1.0.0"
+        android:textSize="20sp"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
