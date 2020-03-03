@@ -29,7 +29,7 @@ class HomeActivity : AppCompatActivity() {
     // Alert with selected level options, bonus : funny toasts
     private fun showAlertDialog() {
         val alertDialog =
-            AlertDialog.Builder(this@HomeActivity)
+            AlertDialog.Builder(this@HomeActivity ,R.style.AlertDialogStyle)
         alertDialog.setTitle("How strong are you ?")
         alertDialog.setSingleChoiceItems(
             levels,
