@@ -31,5 +31,9 @@
         android:background="@color/themeColor"
         />
 
+    <com.narayanacharya.waveview.WaveView
+        android:id="@+id/waveView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.example.quizzy
 
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -13,7 +14,11 @@ class HomeActivity : AppCompatActivity() {
     val TAG = "HOME"
 
     val levels =
-        arrayOf("Newbie", "Between", "GOD")
+        arrayOf(
+            Html.fromHtml("<font color='#ffffff'>Newbie</font>"),
+            Html.fromHtml("<font color='#ffffff'>Between</font>"),
+            Html.fromHtml("<font color='#ffffff'>GOD</font>"))
+
     var selectedLevelIndex = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {

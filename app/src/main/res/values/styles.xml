@@ -11,6 +11,11 @@
 
     <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:fontFamily">sans-serif</item>
+        <item name="android:background">@color/themeColor</item>
+        <item name="android:textColor">@color/textColorButton</item>
+        <item name="android:textColorSecondary">@color/textColorButton</item>
+        <item name="android:dialogCornerRadius">10dp</item>
+        <item name="android:padding">3dp</item>
     </style>
 
 </resources>
