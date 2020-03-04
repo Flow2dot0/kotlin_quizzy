@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.quizzy.screens.CreditsActivity
 import com.example.quizzy.screens.GameActivity
+import com.example.quizzy.screens.QuestionsActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
 
@@ -34,6 +35,12 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
             // TODO : load data from selectedindex
             // TODO : transfer data to Game Activity
+        }
+
+        questionsButton.setOnClickListener {
+            showAlertDialog()
+            val intent = Intent(this, QuestionsActivity::class.java)
+            startActivity(intent)
         }
 
         aboutButton.setOnClickListener {
