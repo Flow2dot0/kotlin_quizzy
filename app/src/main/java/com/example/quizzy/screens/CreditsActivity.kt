@@ -1,4 +1,4 @@
-package com.example.quizzy.ui
+package com.example.quizzy.screens
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
