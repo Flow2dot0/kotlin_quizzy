@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingBottom="50dp"
     android:background="@color/themeColor"
-    tools:context=".ui.GameActivity">
+    tools:context=".screens.GameActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card1"

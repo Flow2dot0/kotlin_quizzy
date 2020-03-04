@@ -7,8 +7,8 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.quizzy.ui.CreditsActivity
-import com.example.quizzy.ui.GameActivity
+import com.example.quizzy.screens.CreditsActivity
+import com.example.quizzy.screens.GameActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
 
