@@ -1,8 +1,12 @@
 package com.example.quizzy.models
 
+import com.example.quizzy.services.FirestoreService
 import com.google.firebase.firestore.FieldValue
 
 class MyManager {
+
+    val firestore = FirestoreService()
+    var indexQuestion : Int? = null
 
     fun serializeScore(myScore : MyScore): HashMap<String, Any?> {
         // serialize data for db
@@ -16,8 +20,6 @@ class MyManager {
             "4" to myScore.fourth,
             "5" to myScore.fifth
         )
-
-
     }
 
     fun deserializeScore(map : HashMap<String, Any?>) : MyScore {
@@ -28,4 +30,24 @@ class MyManager {
         return MyQuestion(map["id"] as Int, map["level"] as String, map["path"] as String, map["title"] as String, map["answer"] as String, map["choice1"] as String, map["choice2"] as String, map["choice3"] as String, map["choice4"] as String, map["choice5"] as String)
     }
 
+    fun incrementQuestionStatus(){}
+
+    fun changeUiStatusForQuickResult(){}
+
+    fun navigateToCredits(){}
+
+    fun navigateToGame(){}
+
+    fun navigateToResults(){}
+
+    fun navigateToAllQuestions(){}
+
+    fun navigateToHome(){}
+
+    fun navigateToUniqueQuestion(){}
+
+    // BONUS
+    fun getListOfQuestionFromAPI(){}
+
+    fun randomQuestions(){}
 }
