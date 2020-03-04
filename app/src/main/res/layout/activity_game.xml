@@ -4,16 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="50dp"
     android:background="@color/themeColor"
+    android:padding="10dp"
     tools:context=".screens.GameActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card1"
-        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintVertical_weight="0.6"
+        app:layout_constraintVertical_weight="0.77"
         app:cardBackgroundColor="@color/backgroundColor"
         app:cardCornerRadius="5dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -32,7 +31,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/playSoundButton"
-                android:text="What animal is representing by this sound ?"
+                android:text="QUESTION ?"
                 app:layout_constraintVertical_chainStyle="spread"
                 android:textStyle="bold"
                 android:textSize="20sp"
@@ -65,7 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:text="cat"
+                    android:text="A"
                     tools:layout_editor_absoluteX="11dp"
                     tools:layout_editor_absoluteY="79dp" />
 
@@ -74,7 +73,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:text="dog"
+                    android:text="B"
+                    tools:layout_editor_absoluteX="13dp"
+                    tools:layout_editor_absoluteY="125dp" />
+
+
+                <RadioButton
+                    android:id="@+id/radioButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:text="C"
+                    tools:layout_editor_absoluteX="13dp"
+                    tools:layout_editor_absoluteY="125dp" />
+
+
+                <RadioButton
+                    android:id="@+id/radioButton4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:text="D"
                     tools:layout_editor_absoluteX="13dp"
                     tools:layout_editor_absoluteY="125dp" />
             </LinearLayout>
@@ -88,11 +107,11 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:layout_marginTop="8dp"
         android:id="@+id/card2"
-        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintVertical_weight="0.35"
+        app:layout_constraintVertical_weight="0.15"
         app:cardBackgroundColor="@color/backgroundColor"
         app:cardCornerRadius="5dp"
         app:layout_constraintTop_toBottomOf="@id/card1"
@@ -135,7 +154,7 @@
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="8dp"
         android:layout_marginHorizontal="125dp"
         android:id="@+id/nextButton"
         android:layout_width="match_parent"

@@ -20,7 +20,8 @@ class HomeActivity : AppCompatActivity() {
         arrayOf(
             Html.fromHtml("<font color='#ffffff'>Newbie</font>"),
             Html.fromHtml("<font color='#ffffff'>Between</font>"),
-            Html.fromHtml("<font color='#ffffff'>GOD</font>"))
+            Html.fromHtml("<font color='#ffffff'>GOD</font>"),
+            Html.fromHtml("<font color='#ffffff'>TITAN</font>"))
 
     var selectedLevelIndex = 0
 
@@ -80,6 +81,16 @@ class HomeActivity : AppCompatActivity() {
                     Toast.makeText(
                         this@HomeActivity,
                         "Are you really one ?",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                3 -> {
+                    selectedLevelIndex = which
+                    Log.i(TAG, "Current level selected : $selectedLevelIndex")
+
+                    Toast.makeText(
+                        this@HomeActivity,
+                        "At least you're already a GOD, let's see if you might be a TITAN (API Questions) ?",
                         Toast.LENGTH_LONG
                     ).show()
                 }

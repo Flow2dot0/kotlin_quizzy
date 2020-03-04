@@ -27,7 +27,7 @@ class MyManager {
     }
 
     fun deserializedQuestion(map : HashMap<String, Any?>) : MyQuestion{
-        return MyQuestion(map["id"] as Int, map["level"] as String, map["path"] as String, map["title"] as String, map["answer"] as String, map["choice1"] as String, map["choice2"] as String, map["choice3"] as String, map["choice4"] as String, map["choice5"] as String)
+        return MyQuestion(map["id"] as Int, map["level"] as Int, map["path"] as String, map["title"] as String, map["answer"] as String, map["A"] as String, map["B"] as String, map["C"] as String, map["D"] as String)
     }
 
     fun incrementQuestionStatus(){}
