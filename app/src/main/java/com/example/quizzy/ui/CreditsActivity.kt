@@ -1,7 +1,8 @@
-package com.example.quizzy
+package com.example.quizzy.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.quizzy.R
 
 class CreditsActivity : AppCompatActivity() {
 

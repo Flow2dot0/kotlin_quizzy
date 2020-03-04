@@ -7,6 +7,8 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.quizzy.ui.CreditsActivity
+import com.example.quizzy.ui.GameActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
 
@@ -27,8 +29,11 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         playButton.setOnClickListener {
-
             showAlertDialog()
+            val intent = Intent(this, GameActivity::class.java)
+            startActivity(intent)
+            // TODO : load data from selectedindex
+            // TODO : transfer data to Game Activity
         }
 
         aboutButton.setOnClickListener {
