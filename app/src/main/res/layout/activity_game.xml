@@ -22,6 +22,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="40dp"
             >
             <TextView
                 android:textAlignment="center"
@@ -32,12 +33,13 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/playSoundButton"
                 android:text="QUESTION ?"
-                app:layout_constraintVertical_chainStyle="spread"
+                app:layout_constraintVertical_chainStyle="spread_inside"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 />
 
             <Button
+                android:visibility="invisible"
                 android:id="@+id/playSoundButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,6 +49,16 @@
                 android:textColor="@color/textColorButton"
                 app:layout_constraintTop_toBottomOf="@id/questionTitle"
                 app:layout_constraintBottom_toTopOf="@id/selectOptions"
+                />
+
+            <ImageView
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/images"
+                app:layout_constraintTop_toBottomOf="@id/questionTitle"
+                app:layout_constraintBottom_toTopOf="@id/selectOptions"
+                android:src="@drawable/brain"
                 />
 
             <LinearLayout
