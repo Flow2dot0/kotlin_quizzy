@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "529431308767",
+    "firebase_url": "https://kotlin-quizzy.firebaseio.com",
+    "project_id": "kotlin-quizzy",
+    "storage_bucket": "kotlin-quizzy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:529431308767:android:60330599f907f2a259bc6a",
+        "android_client_info": {
+          "package_name": "com.example.quizzy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "529431308767-60emljth26hmddik749r3jqmg0llmthv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5tYQzjAxaOwTFigrJeBdpCd-3cxbhKxA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "529431308767-60emljth26hmddik749r3jqmg0llmthv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

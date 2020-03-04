@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.quizzy.ui.CreditsActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
 
