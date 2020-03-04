@@ -19,7 +19,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.603"></androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintVertical_bias="0.603" />
 
     <TextView
         android:id="@+id/creditsTitle"
@@ -39,7 +39,7 @@
         android:id="@+id/creditsContributors"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Made with Love by F2.0"
+        android:text="Made with Love by F2.0 and Ben Grandin"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@id/creditsVersioning"
         app:layout_constraintTop_toBottomOf="@id/creditsTitle" />

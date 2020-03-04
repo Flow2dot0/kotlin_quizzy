@@ -4,6 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layout_constraintVertical_weight="10"
     tools:context=".screens.QuestionsActivity">
 
+    <TextView
+        android:id="@+id/questionsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="50dp"
+        android:text="Toutes les questions"
+        android:textAlignment="center"
+        android:textColor="@color/themeColor"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@id/questions_recycler_view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        app:layout_constraintVertical_weight="2" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/questions_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toTopOf="@id/questions_recycler_view"
+        app:layout_constraintTop_toBottomOf="@id/questionsTitle"
+        app:layout_constraintVertical_weight="8" />
 </androidx.constraintlayout.widget.ConstraintLayout>
