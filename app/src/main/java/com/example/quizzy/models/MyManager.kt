@@ -8,7 +8,6 @@ import com.example.quizzy.HomeActivity
 import com.example.quizzy.interfaces.MyCallback
 import com.example.quizzy.screens.GameActivity
 import com.example.quizzy.screens.ResultsActivity
-import com.example.quizzy.services.FirestoreService
 import com.example.quizzy.screens.QuestionsActivity
 import com.example.quizzy.services.FirestoreService.FirestoreService
 import com.google.firebase.firestore.FieldValue
@@ -114,23 +113,47 @@ class MyManager {
 
 
 	fun retrieveDataFromNavigate(intent: Intent, string: String) {
-		when (string) {
-			GameActivity.TAG -> {
-				currentListQuestions = intent.getParcelableArrayListExtra<MyQuestion>("myQuestions")
-				currentScore = intent.getParcelableExtra<MyScore>("myScore")
-				indexQuestion = intent.getIntExtra("indexQuestion", 10)
+        when (string) {
+            GameActivity.TAG -> {
+                currentListQuestions = intent.getParcelableArrayListExtra<MyQuestion>("myQuestions")
+                currentScore = intent.getParcelableExtra<MyScore>("myScore")
+                indexQuestion = intent.getIntExtra("indexQuestion", 10)
 
-				Log.i(TAG, "MY QUESTIONS ARE : $currentListQuestions")
-				Log.i(TAG, "MY CURRENT SCORE IS :  $currentScore")
-				Log.i(TAG, "THE INDEX IS :  $indexQuestion")
-			}
-			QuestionsActivity.TAG -> {
-				allQuestions = intent.getParcelableArrayListExtra<MyQuestion>("allQuestions") as ArrayList
-				Log.i(TAG, "allQuestions ARE : $allQuestions")
-			}
-		}
-  
-  
+                Log.i(TAG, "MY QUESTIONS ARE : $currentListQuestions")
+                Log.i(TAG, "MY CURRENT SCORE IS :  $currentScore")
+                Log.i(TAG, "THE INDEX IS :  $indexQuestion")
+            }
+            QuestionsActivity.TAG -> {
+                allQuestions =
+                    intent.getParcelableArrayListExtra<MyQuestion>("allQuestions") as ArrayList
+                Log.i(TAG, "allQuestions ARE : $allQuestions")
+            }
+        }
+
+    }
+
+    fun navigateToWithData(
+        activity: String,
+        context: Context,
+        questions: ArrayList<MyQuestion>?,
+        myScore: MyScore? = MyScore()
+    ) {
+
+        when (activity) {
+            GameActivity.TAG -> {
+                val intent = Intent(context, GameActivity::class.java)
+                intent.putParcelableArrayListExtra("myQuestions", questions)
+                intent.putExtra("myScore", myScore)
+                intent.putExtra("indexQuestion", indexQuestion)
+                context.startActivity(intent)
+            }
+            QuestionsActivity.TAG -> {
+                val intent = Intent(context, QuestionsActivity::class.java)
+                intent.putParcelableArrayListExtra("allQuestions", questions)
+                context.startActivity(intent)
+            }
+        }
+    }
 
 	fun getAllQuestionsFromDB(context: Context) {
 		firestore.getAllQuestions(object : MyCallback {
@@ -142,31 +165,10 @@ class MyManager {
 		})
 	}
 
-	fun navigateToWithData(
-		activity: String,
-		context: Context,
-		questions: ArrayList<MyQuestion>?,
-		myScore: MyScore? = MyScore()
-	) {
-
-		when (activity) {
-			GameActivity.TAG -> {
-				val intent = Intent(context, GameActivity::class.java)
-				intent.putParcelableArrayListExtra("myQuestions", questions)
-				intent.putExtra("myScore", myScore)
-				intent.putExtra("indexQuestion", indexQuestion)
-				context.startActivity(intent)
-			}
-			QuestionsActivity.TAG -> {
-				val intent = Intent(context, QuestionsActivity::class.java)
-				intent.putParcelableArrayListExtra("allQuestions", questions)
-				context.startActivity(intent)
-			}
-		}
-	}
 
 
 
-	}
+
+
 
 }
