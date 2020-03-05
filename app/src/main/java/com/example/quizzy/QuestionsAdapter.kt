@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.quizzy.models.MyQuestion
 
 class QuestionsAdapter(
-	val questions: Array<MyQuestion>,
+	val questions: List<MyQuestion>,
 	val itemClickListener: View.OnClickListener
 ) :
 	RecyclerView.Adapter<QuestionsAdapter.ViewHolder>() {
