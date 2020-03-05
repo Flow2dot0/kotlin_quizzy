@@ -5,6 +5,7 @@ import android.content.Intent
 import android.util.Log
 import com.example.quizzy.interfaces.MyCallback
 import com.example.quizzy.screens.GameActivity
+import com.example.quizzy.screens.ResultsActivity
 import com.example.quizzy.services.FirestoreService
 import com.google.firebase.firestore.FieldValue
 
@@ -70,20 +71,27 @@ class MyManager {
                 // randomise the current list
                 currentListQuestions = questionsData.shuffled() as ArrayList<MyQuestion>
                 // navigate to Game Activity
-                navigateToWithData(context, currentListQuestions)
+                navigateToGameWithData(context)
             }
         }, indexSelected)
 
 
     }
 
-    fun navigateToWithData(context: Context, currentListQuestions : ArrayList<MyQuestion>, myScore : MyScore = MyScore()){
+    fun navigateToGameWithData(context: Context){
         val intent = Intent(context, GameActivity::class.java)
         intent.putParcelableArrayListExtra("myQuestions", currentListQuestions)
-        intent.putExtra("myScore", myScore)
+        intent.putExtra("myScore", MyScore())
         intent.putExtra("indexQuestion", indexQuestion)
         context.startActivity(intent)
     }
+
+    fun navigateToResultsWithData(context: Context){
+        val intent = Intent(context, ResultsActivity::class.java)
+        intent.putExtra("myScore", currentScore)
+        context.startActivity(intent)
+    }
+
 
     fun retrieveDataFromNavigate(intent : Intent){
         currentListQuestions = intent.getParcelableArrayListExtra<MyQuestion>("myQuestions")
