@@ -66,12 +66,13 @@ class MyManager {
 			map["A"] as String,
 			map["B"] as String,
 			map["C"] as String,
-			map["D"] as String
+			map["D"] as String,
+			map["pathMode"] as String
 		)
 	}
 
 	fun registerScoreToFirestore() {
-		var map = serializeScore(currentScore)
+		val map = serializeScore(currentScore)
 		firestore.createMyScore(map)
 	}
 

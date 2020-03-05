@@ -17,5 +17,5 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/brain" />
+        android:src="@drawable/brain" />
 </androidx.constraintlayout.widget.ConstraintLayout>

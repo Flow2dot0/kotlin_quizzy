@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.View
+import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.quizzy.R
 import com.example.quizzy.models.MyManager
 import com.example.quizzy.models.MyQuestion
@@ -14,8 +16,8 @@ import com.example.quizzy.models.MyScore
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerSupportFragment
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_game.*
-import kotlinx.android.synthetic.main.activity_results.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlin.properties.Delegates
@@ -46,9 +48,10 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
 		statusQuestionNumber.visibility =
 			if (manager.statusQuestionNumberVisibility) View.VISIBLE else View.INVISIBLE
 
+
 		youTubePlayerFragment =
 			(supportFragmentManager.findFragmentById(R.id.third_party_player_view) as YouTubePlayerSupportFragment?)!!
-		youTubePlayerFragment.initialize("AIzaSyB5hIzmoI7JANpXYWQLm4liboActq_VXUQ", this)
+//		youTubePlayerFragment.initialize("AIzaSyB5hIzmoI7JANpXYWQLm4liboActq_VXUQ", this)
 		updateUI()
 		score.correct = 0
 		score.level = currentQuestion.level
@@ -134,7 +137,7 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
 					toast.show()
 				}
 
-				if (manager.question.size == 1) {
+			if (manager.question.size == 1) {
 					manager.navigateToWithData(
 						QuestionsActivity.TAG,
 						this
@@ -194,7 +197,6 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
 		statusQuestionNumber.text = qNumber
 		// init yt player
 		youTubePlayerFragment.onDestroy()
-		youTubePlayerFragment.initialize("AIzaSyB5hIzmoI7JANpXYWQLm4liboActq_VXUQ", this)
 		// TODO : display value for each radio button
 		questionTitle.setText("${currentQuestion.title}")
 		randomiseChoices()
@@ -202,6 +204,29 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
 		radioButton2.setText(choices[1])
 		radioButton3.setText(choices[2])
 		radioButton4.setText(choices[3])
+
+		// TODO : detect path status
+		// set visibilities
+		when(currentQuestion.pathMode){
+			"YT" -> {
+				linearLayout.visibility = View.INVISIBLE
+				third_party_player_view.isVisible
+				youTubePlayerFragment.initialize("AIzaSyB5hIzmoI7JANpXYWQLm4liboActq_VXUQ", this)
+			}
+			"IMG" -> {
+				linearLayout.visibility = View.VISIBLE
+				third_party_player_view.isHidden
+				val imageView = ImageView(this)
+				Glide.with(this).load(currentQuestion.path).into(imageView)
+				linearLayout.addView(imageView)
+			}
+		}
+
+		// path is URI
+		// on click display alert dialog with image bigger
+		// cancelable true
+
+		// path is youtube ID
 	}
 
 }
