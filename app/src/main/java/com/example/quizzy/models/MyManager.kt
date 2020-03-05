@@ -19,7 +19,7 @@ class MyManager {
 	var indexQuestion: Int = 0
 	lateinit var questionsData: List<MyQuestion>
 
-	lateinit var allQuestions: ArrayList<MyQuestion>
+	lateinit var allQuestions: MutableList<MyQuestion>
 	lateinit var currentListQuestions: ArrayList<MyQuestion>
 	lateinit var currentScore: MyScore
 
@@ -103,7 +103,7 @@ class MyManager {
 			override fun onCallback(value: List<MyQuestion>) {
 				allQuestions = value as ArrayList<MyQuestion>
 				Log.i(TAG, "I GET MY allQuestions FROM DB : $allQuestions")
-				navigateToWithData(QuestionsActivity.TAG, context,allQuestions)
+				navigateToWithData(QuestionsActivity.TAG, context,allQuestions as ArrayList<MyQuestion>)
 			}
 		})
 	}
