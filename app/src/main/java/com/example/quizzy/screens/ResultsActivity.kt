@@ -3,6 +3,7 @@ package com.example.quizzy.screens
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.quizzy.R
 import com.example.quizzy.models.MyManager
@@ -37,6 +38,7 @@ class ResultsActivity : AppCompatActivity() {
 
         val pourcentage = "${score.winrate} %"
         resultsPourcentage.text = pourcentage
+        Log.i(TAG, "SCORE FINAL STATE : $score")
         manager.registerScoreToFirestore()
         manager.redirectAfterXSecondsToHome(this)
     }
