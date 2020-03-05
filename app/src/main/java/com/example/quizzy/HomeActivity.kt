@@ -36,9 +36,7 @@ class HomeActivity : AppCompatActivity() {
 
         playButton.setOnClickListener {
             showAlertDialog()
-
         }
-
 
         aboutButton.setOnClickListener {
             val intent = Intent(this, CreditsActivity::class.java)
@@ -108,22 +106,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun loadData(){
-        manager.getListOfQuestionFromDB(object : MyCallback{
-            override fun onCallback(value: List<MyQuestion>) {
-                questionsData = value
-                println("PEUT ETRE MES DATA : $questionsData")
-                // TODO : add navigation to Game Activity
-                navigateToActivity()
-                // TODO : transfer data to Game Activity
-            }
-        }, selectedLevelIndex)
+        manager.getListOfQuestionFromDB(selectedLevelIndex, this)
     }
 
-    private fun navigateToActivity(){
-        val intent = Intent(this, GameActivity::class.java)
-        var newList : ArrayList<MyQuestion> = questionsData as ArrayList<MyQuestion>
-        intent.putParcelableArrayListExtra("data", newList)
-        startActivity(intent)
-    }
 
 }

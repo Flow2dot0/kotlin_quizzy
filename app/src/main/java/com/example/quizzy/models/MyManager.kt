@@ -1,13 +1,22 @@
 package com.example.quizzy.models
 
+import android.content.Context
+import android.content.Intent
+import android.util.Log
 import com.example.quizzy.interfaces.MyCallback
+import com.example.quizzy.screens.GameActivity
 import com.example.quizzy.services.FirestoreService
 import com.google.firebase.firestore.FieldValue
 
 class MyManager {
 
+    val TAG = "MANAGER"
+
     val firestore = FirestoreService()
-    var indexQuestion : Int? = null
+    var indexQuestion : Int = 0
+    lateinit var questionsData : List<MyQuestion>
+    lateinit var currentListQuestions : ArrayList<MyQuestion>
+
 
     fun serializeScore(myScore : MyScore): HashMap<String, Any?> {
         // serialize data for db
@@ -50,10 +59,38 @@ class MyManager {
     // BONUS
     fun getListOfQuestionFromAPI(){}
 
-    fun getListOfQuestionFromDB(myCallback: MyCallback, indexSelected : Int) {
+    fun getListOfQuestionFromDB(indexSelected : Int, context: Context) {
 
-        firestore.getQuestionsListBasedOnLevel(myCallback, indexSelected)
+        firestore.getQuestionsListBasedOnLevel(object : MyCallback{
+            override fun onCallback(value: List<MyQuestion>) {
+                questionsData = value
+                println("PEUT ETRE MES DATA : $questionsData")
+                currentListQuestions = questionsData as ArrayList<MyQuestion>
+                navigateToWithData(context, currentListQuestions)
+                // TODO : add navigation to Game Activity
+                // TODO : transfer data to Game Activity
+            }
+        }, indexSelected)
 
+
+    }
+
+    fun navigateToWithData(context: Context, currentListQuestions : ArrayList<MyQuestion>, myScore : MyScore = MyScore()){
+        val intent = Intent(context, GameActivity::class.java)
+        intent.putParcelableArrayListExtra("myQuestions", currentListQuestions)
+        intent.putExtra("myScore", myScore)
+        intent.putExtra("indexQuestion", indexQuestion)
+        context.startActivity(intent)
+    }
+
+    fun retrieveDataFromNavigate(intent : Intent){
+        val questions = intent.getParcelableArrayListExtra<MyQuestion>("myQuestions")
+        val score = intent.getParcelableExtra<MyScore>("myScore")
+        val index = intent.getIntExtra("indexQuestion", 10)
+
+        Log.i(TAG, "MES QUESTIONS SONT $questions")
+        Log.i(TAG, "MON SCORE EST :  $score")
+        Log.i(TAG, "L'INDEX EST :  $index")
     }
 
     fun randomQuestions(){}

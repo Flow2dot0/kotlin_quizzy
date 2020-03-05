@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.quizzy.R
 import com.example.quizzy.models.MyManager
 import com.example.quizzy.models.MyQuestion
+import com.example.quizzy.models.MyScore
 import kotlinx.android.synthetic.main.activity_game.*
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
@@ -25,9 +26,7 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
-        val questions = intent.getParcelableArrayListExtra<MyQuestion>("data")
-
-        Log.i(TAG, "MA QUESTION est $questions")
+        manager.retrieveDataFromNavigate(intent)
 
         // hide the done box result
         var isDone = View.INVISIBLE
