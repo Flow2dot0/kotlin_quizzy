@@ -8,10 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quizzy.QuestionsAdapter
 import com.example.quizzy.R
-import com.example.quizzy.interfaces.MyCallback
 import com.example.quizzy.models.MyManager
 import com.example.quizzy.models.MyQuestion
-import com.example.quizzy.services.FirestoreService.FirestoreServiceStub
 import kotlinx.android.synthetic.main.activity_questions.*
 
 class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
@@ -43,8 +41,11 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
 	override fun onClick(v: View?) {
 		if (v?.tag != null) {
 			val index = v.tag as Int
-			val question =manager.allQuestions[index]
+			val question = manager.allQuestions[index]
 			Toast.makeText(this, "id: ${question.id}", Toast.LENGTH_SHORT).show()
+
+			manager.navigateToWithData(GameActivity.TAG, this, MutableList(1) { question } as ArrayList<MyQuestion>)
+
 		}
 	}
 

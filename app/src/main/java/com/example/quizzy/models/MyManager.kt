@@ -143,7 +143,7 @@ class MyManager {
 				Log.i(TAG, "THE INDEX IS :  $indexQuestion")
 			}
 			QuestionsActivity.TAG -> {
-				allQuestions = intent.getParcelableArrayListExtra<MyQuestion>("allQuestions")
+				allQuestions = intent.getParcelableArrayListExtra<MyQuestion>("allQuestions") as ArrayList
 				Log.i(TAG, "allQuestions ARE : $allQuestions")
 			}
 		}
