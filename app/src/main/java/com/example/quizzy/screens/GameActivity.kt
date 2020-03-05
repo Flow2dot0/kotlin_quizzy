@@ -15,6 +15,7 @@ import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerSupportFragment
 import kotlinx.android.synthetic.main.activity_game.*
+import kotlinx.android.synthetic.main.activity_results.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlin.properties.Delegates
@@ -45,8 +46,6 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
 		statusQuestionNumber.visibility =
 			if (manager.statusQuestionNumberVisibility) View.VISIBLE else View.INVISIBLE
 
-
-
 		youTubePlayerFragment =
 			(supportFragmentManager.findFragmentById(R.id.third_party_player_view) as YouTubePlayerSupportFragment?)!!
 		youTubePlayerFragment.initialize("AIzaSyB5hIzmoI7JANpXYWQLm4liboActq_VXUQ", this)
@@ -54,6 +53,13 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
 		score.correct = 0
 		score.level = currentQuestion.level
 		handleUserSelection()
+        levelStatus.text = when(currentQuestion.level){
+            0 -> "Newbie"
+            1 -> "Between"
+            2 -> "GOD"
+            3 -> "TITAN"
+            else -> "ERROR"
+        }
 	}
 
 	// On success
