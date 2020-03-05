@@ -118,7 +118,7 @@ class MyManager {
             GameActivity.TAG -> {
                 val intent = Intent(context, GameActivity::class.java)
                 intent.putParcelableArrayListExtra("myQuestions", currentListQuestions)
-                intent.putExtra("myScore", currentScore)
+                intent.putExtra("myScore", MyScore())
                 intent.putExtra("indexQuestion", indexQuestion)
                 context.startActivity(intent)
             }

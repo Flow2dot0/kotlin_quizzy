@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 class HomeActivity : AppCompatActivity() {
 
 	companion object {
-		val TAG = "HOME"
+		val TAG = "HomeActivity"
 	}
 
 	private val manager = MyManager()

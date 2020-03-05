@@ -34,6 +34,7 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
     var userAnswer by Delegates.notNull<Boolean>()
     lateinit var youTubePlayerFragment : YouTubePlayerSupportFragment
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
@@ -129,7 +130,7 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
                         handleUserSelection()
                     }else{
                         // TODO : at end of list question navigate to Results Activity
-                        manager.navigateToWithData(TAG,this)
+                        manager.navigateToWithData(ResultsActivity.TAG,this)
                         // TODO : then after 3 seconds navigate to HomeActivity
                     }
                 }
