@@ -1,12 +1,24 @@
 package com.example.quizzy.models
 
+import android.content.Context
+import android.content.Intent
+import android.util.Log
+import com.example.quizzy.interfaces.MyCallback
+import com.example.quizzy.screens.GameActivity
 import com.example.quizzy.services.FirestoreService
 import com.google.firebase.firestore.FieldValue
 
 class MyManager {
 
+    val TAG = "MANAGER"
+
     val firestore = FirestoreService()
-    var indexQuestion : Int? = null
+
+    var indexQuestion : Int = 0
+    lateinit var questionsData : List<MyQuestion>
+    lateinit var currentListQuestions : ArrayList<MyQuestion>
+    lateinit var currentScore: MyScore
+
 
     fun serializeScore(myScore : MyScore): HashMap<String, Any?> {
         // serialize data for db
@@ -27,7 +39,7 @@ class MyManager {
     }
 
     fun deserializedQuestion(map : HashMap<String, Any?>) : MyQuestion{
-        return MyQuestion(map["id"] as Int, map["level"] as String, map["path"] as String, map["title"] as String, map["answer"] as String, map["choice1"] as String, map["choice2"] as String, map["choice3"] as String, map["choice4"] as String, map["choice5"] as String)
+        return MyQuestion(map["id"] as Int, map["level"] as Int, map["path"] as String, map["title"] as String, map["answer"] as String, map["A"] as String, map["B"] as String, map["C"] as String, map["D"] as String)
     }
 
     fun incrementQuestionStatus(){}
@@ -48,6 +60,40 @@ class MyManager {
 
     // BONUS
     fun getListOfQuestionFromAPI(){}
+
+    fun getListOfQuestionFromDB(indexSelected : Int, context: Context) {
+
+        firestore.getQuestionsListBasedOnLevel(object : MyCallback{
+            override fun onCallback(value: List<MyQuestion>) {
+                questionsData = value
+                Log.i(TAG, "I GET MY DATA FROM DB : $questionsData")
+                // randomise the current list
+                currentListQuestions = questionsData.shuffled() as ArrayList<MyQuestion>
+                // navigate to Game Activity
+                navigateToWithData(context, currentListQuestions)
+            }
+        }, indexSelected)
+
+
+    }
+
+    fun navigateToWithData(context: Context, currentListQuestions : ArrayList<MyQuestion>, myScore : MyScore = MyScore()){
+        val intent = Intent(context, GameActivity::class.java)
+        intent.putParcelableArrayListExtra("myQuestions", currentListQuestions)
+        intent.putExtra("myScore", myScore)
+        intent.putExtra("indexQuestion", indexQuestion)
+        context.startActivity(intent)
+    }
+
+    fun retrieveDataFromNavigate(intent : Intent){
+        currentListQuestions = intent.getParcelableArrayListExtra<MyQuestion>("myQuestions")
+        currentScore = intent.getParcelableExtra<MyScore>("myScore")
+        indexQuestion = intent.getIntExtra("indexQuestion", 10)
+
+        Log.i(TAG, "MY QUESTIONS ARE : $currentListQuestions")
+        Log.i(TAG, "MY CURRENT SCORE IS :  $currentScore")
+        Log.i(TAG, "THE INDEX IS :  $indexQuestion")
+    }
 
     fun randomQuestions(){}
 }

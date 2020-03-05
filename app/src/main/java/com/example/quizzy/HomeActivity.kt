@@ -7,6 +7,9 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.quizzy.interfaces.MyCallback
+import com.example.quizzy.models.MyManager
+import com.example.quizzy.models.MyQuestion
 import com.example.quizzy.screens.CreditsActivity
 import com.example.quizzy.screens.GameActivity
 import com.example.quizzy.screens.QuestionsActivity
@@ -15,13 +18,15 @@ import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
 
-    val TAG = "HOME"
+    private val TAG = "HOME"
+    private val manager = MyManager()
 
-    val levels =
+    private val levels =
         arrayOf(
             Html.fromHtml("<font color='#ffffff'>Newbie</font>"),
             Html.fromHtml("<font color='#ffffff'>Between</font>"),
-            Html.fromHtml("<font color='#ffffff'>GOD</font>"))
+            Html.fromHtml("<font color='#ffffff'>GOD</font>"),
+            Html.fromHtml("<font color='#ffffff'>TITAN</font>"))
 
     var selectedLevelIndex = 0
 
@@ -31,10 +36,6 @@ class HomeActivity : AppCompatActivity() {
 
         playButton.setOnClickListener {
             showAlertDialog()
-            val intent = Intent(this, GameActivity::class.java)
-            startActivity(intent)
-            // TODO : load data from selectedindex
-            // TODO : transfer data to Game Activity
         }
 
         questionsButton.setOnClickListener {
@@ -62,7 +63,6 @@ class HomeActivity : AppCompatActivity() {
                 0 -> {
                     selectedLevelIndex = which
                     Log.i(TAG, "Current level selected : $selectedLevelIndex")
-
                     Toast.makeText(
                         this@HomeActivity,
                         "No worries, it will be fine...",
@@ -89,11 +89,31 @@ class HomeActivity : AppCompatActivity() {
                         "Are you really one ?",
                         Toast.LENGTH_LONG
                     ).show()
+
+                }
+                3 -> {
+                    selectedLevelIndex = which
+                    Log.i(TAG, "Current level selected : $selectedLevelIndex")
+
+                    Toast.makeText(
+                        this@HomeActivity,
+                        "At least you're already a GOD, let's see if you might be a TITAN (API Questions) ?",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }
         val alert = alertDialog.create()
         alert.setCanceledOnTouchOutside(true)
+        alert.setOnCancelListener {
+            loadData()
+        }
         alert.show()
     }
+
+    private fun loadData(){
+        manager.getListOfQuestionFromDB(selectedLevelIndex, this)
+    }
+
+
 }

@@ -1,6 +1,8 @@
 package com.example.quizzy.services
 
 import android.util.Log
+import com.example.quizzy.interfaces.MyCallback
+import com.example.quizzy.models.MyQuestion
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FirestoreService {
@@ -23,31 +25,28 @@ class FirestoreService {
             }
     }
 
-    fun getQuestionsListBasedOnLevel(indexSelectRadio : Int) : List<HashMap<String, Any?>> {
-        val levelStatus = when(indexSelectRadio){
-            0 -> "newbie"
-            1 -> "between"
-            else -> "god"
-        }
-        val l = mutableListOf<HashMap<String, Any?>>()
 
+    // done
+    fun getQuestionsListBasedOnLevel(myCallback: MyCallback, indexSelected: Int): MutableList<MyQuestion> {
+        var data = mutableListOf<MyQuestion>()
         db.collection("questions")
-            .whereEqualTo("level", levelStatus)
+            .whereEqualTo("level", indexSelected)
             .get()
             .addOnSuccessListener { result ->
-                for (document in result) {
-                    Log.d(TAG, "${document.id} => ${document.data}")
-                    // TODO : get the data as hashmap and add to list, final returning the list
-
-                }
+                data = result.toObjects(MyQuestion::class.java)
+                Log.d(TAG, "=> ${result.toObjects(MyQuestion::class.java)}")
+                myCallback.onCallback(data)
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
             }
 
-        return l
 
+        return data
     }
+
+
+
 
 
 
