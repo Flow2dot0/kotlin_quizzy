@@ -3,7 +3,7 @@ package com.example.quizzy.models
 import android.os.Parcel
 import android.os.Parcelable
 
-data class MyScore(var date: String? = null, var first: Boolean? = null, var second: Boolean? = null, var third: Boolean? = null, var fourth: Boolean? = null, var fifth: Boolean? = null, var correct: Int? = null, var winrate: Int? = null) : Parcelable {
+data class MyScore(var date: String? = null, var first: Boolean? = null, var second: Boolean? = null, var third: Boolean? = null, var fourth: Boolean? = null, var fifth: Boolean? = null, var correct: Int? = null, var winrate: Int? = null, var level: Int? = null) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readValue(Boolean::class.java.classLoader) as? Boolean,
@@ -11,6 +11,7 @@ data class MyScore(var date: String? = null, var first: Boolean? = null, var sec
         parcel.readValue(Boolean::class.java.classLoader) as? Boolean,
         parcel.readValue(Boolean::class.java.classLoader) as? Boolean,
         parcel.readValue(Boolean::class.java.classLoader) as? Boolean,
+        parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readValue(Int::class.java.classLoader) as? Int
     ) {
@@ -25,6 +26,7 @@ data class MyScore(var date: String? = null, var first: Boolean? = null, var sec
         parcel.writeValue(fifth)
         parcel.writeValue(correct)
         parcel.writeValue(winrate)
+        parcel.writeValue(level)
     }
 
     override fun describeContents(): Int {
@@ -40,4 +42,5 @@ data class MyScore(var date: String? = null, var first: Boolean? = null, var sec
             return arrayOfNulls(size)
         }
     }
+
 }
