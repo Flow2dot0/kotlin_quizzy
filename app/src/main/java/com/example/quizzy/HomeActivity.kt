@@ -17,11 +17,10 @@ import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
 
-    val TAG = "HOME"
-    val manager = MyManager()
-    lateinit var questionsData : List<MyQuestion>
+    private val TAG = "HOME"
+    private val manager = MyManager()
 
-    val levels =
+    private val levels =
         arrayOf(
             Html.fromHtml("<font color='#ffffff'>Newbie</font>"),
             Html.fromHtml("<font color='#ffffff'>Between</font>"),

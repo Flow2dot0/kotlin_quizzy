@@ -13,9 +13,11 @@ class MyManager {
     val TAG = "MANAGER"
 
     val firestore = FirestoreService()
+
     var indexQuestion : Int = 0
     lateinit var questionsData : List<MyQuestion>
     lateinit var currentListQuestions : ArrayList<MyQuestion>
+    lateinit var currentScore: MyScore
 
 
     fun serializeScore(myScore : MyScore): HashMap<String, Any?> {
@@ -64,11 +66,11 @@ class MyManager {
         firestore.getQuestionsListBasedOnLevel(object : MyCallback{
             override fun onCallback(value: List<MyQuestion>) {
                 questionsData = value
-                println("PEUT ETRE MES DATA : $questionsData")
+                Log.i(TAG, "I GET MY DATA FROM DB : $questionsData")
+                // randomise the current list
                 currentListQuestions = questionsData.shuffled() as ArrayList<MyQuestion>
+                // navigate to Game Activity
                 navigateToWithData(context, currentListQuestions)
-                // TODO : add navigation to Game Activity
-                // TODO : transfer data to Game Activity
             }
         }, indexSelected)
 
@@ -84,13 +86,13 @@ class MyManager {
     }
 
     fun retrieveDataFromNavigate(intent : Intent){
-        val questions = intent.getParcelableArrayListExtra<MyQuestion>("myQuestions")
-        val score = intent.getParcelableExtra<MyScore>("myScore")
-        val index = intent.getIntExtra("indexQuestion", 10)
+        currentListQuestions = intent.getParcelableArrayListExtra<MyQuestion>("myQuestions")
+        currentScore = intent.getParcelableExtra<MyScore>("myScore")
+        indexQuestion = intent.getIntExtra("indexQuestion", 10)
 
-        Log.i(TAG, "MES QUESTIONS SONT $questions")
-        Log.i(TAG, "MON SCORE EST :  $score")
-        Log.i(TAG, "L'INDEX EST :  $index")
+        Log.i(TAG, "MY QUESTIONS ARE : $currentListQuestions")
+        Log.i(TAG, "MY CURRENT SCORE IS :  $currentScore")
+        Log.i(TAG, "THE INDEX IS :  $indexQuestion")
     }
 
     fun randomQuestions(){}

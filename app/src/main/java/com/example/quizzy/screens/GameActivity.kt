@@ -3,6 +3,7 @@ package com.example.quizzy.screens
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.quizzy.R
@@ -13,13 +14,22 @@ import kotlinx.android.synthetic.main.activity_game.*
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerSupportFragment
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 
 class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
 
-    val TAG = "Game Activity"
-    val manager = MyManager()
-
+    private val TAG = "Game Activity"
     private val RECOVERY_DIALOG_REQUEST = 1
+
+    private val manager = MyManager()
+    lateinit var currentQuestion : MyQuestion
+    lateinit var choices : MutableList<String>
+    lateinit var path : String
+    lateinit var correct : String
+
+    private var isDone = View.INVISIBLE
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,19 +37,48 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
         setContentView(R.layout.activity_game)
 
         manager.retrieveDataFromNavigate(intent)
-
+        currentQuestion = manager.currentListQuestions[manager.indexQuestion]
+        correct = currentQuestion.answer.toString()
+        path = currentQuestion.path.toString()
         // hide the done box result
-        var isDone = View.INVISIBLE
-        card2.visibility = isDone
+//        card2.visibility = isDone
+        nextButton.setText("OK")
 
         // init yt player
         val youTubePlayerFragment = supportFragmentManager.findFragmentById(R.id.third_party_player_view) as YouTubePlayerSupportFragment?
         youTubePlayerFragment?.initialize("AIzaSyB5hIzmoI7JANpXYWQLm4liboActq_VXUQ", this)
 
         // TODO : display value for each radio button
+        questionTitle.setText("${currentQuestion.title}")
+        randomiseChoices()
+        radioButton.setText(choices[0])
+        radioButton2.setText(choices[1])
+        radioButton3.setText(choices[2])
+        radioButton4.setText(choices[3])
 
+        handleChoiceSelection()
 
+        nextButton.setOnClickListener {
+            var id: Int = radioGroup.checkedRadioButtonId
+            if(id!=-1){
+                val radio : RadioButton = findViewById(id)
+                if(radio.text == correct){
 
+                    Toast.makeText(this,"Correct :" +
+                            " ${radio.text}",
+                        Toast.LENGTH_LONG).show()
+                }
+                runBlocking {
+                    delay(2000)
+                    nextButton.setText("NEXT")
+                }
+
+            }else{
+                Toast.makeText(applicationContext,"Something wrong :" +
+                        " nothing selected",
+                    Toast.LENGTH_LONG).show()
+            }
+        }
 
 
         // TODO : get value of selected radio if OK pressed
@@ -58,7 +97,7 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
     // On success
     override fun onInitializationSuccess(provider: YouTubePlayer.Provider,youTubePlayer: YouTubePlayer,wasRestored: Boolean) {
         if (!wasRestored) {
-            youTubePlayer.cueVideo("-WzHcCfZwRs")
+            youTubePlayer.cueVideo(path)
         }
     }
 
@@ -72,6 +111,20 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
                 youTubeInitializationResult.toString()
             )
             Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    fun randomiseChoices(){
+        choices = mutableListOf<String>(currentQuestion.A!!,
+            currentQuestion.B!!, currentQuestion.C!!, currentQuestion.D!!)
+        choices.shuffle()
+    }
+
+    fun handleChoiceSelection(){
+        // Get radio group selected item using on checked change listener
+        radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            val radio: RadioButton = findViewById(checkedId)
+            Toast.makeText(this, "Selected : ${radio.text}", Toast.LENGTH_SHORT).show()
         }
     }
 }
