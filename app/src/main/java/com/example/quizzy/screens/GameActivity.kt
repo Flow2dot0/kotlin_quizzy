@@ -63,9 +63,14 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
             if(id!=-1){
                 val radio : RadioButton = findViewById(id)
                 if(radio.text == correct){
-
+                    // TODO : change background color to GREEN
                     Toast.makeText(this,"Correct :" +
                             " ${radio.text}",
+                        Toast.LENGTH_LONG).show()
+                }else{
+                    // TODO : change background color to RED
+                    Toast.makeText(this,"False :" +
+                            " ${correct}",
                         Toast.LENGTH_LONG).show()
                 }
                 runBlocking {
