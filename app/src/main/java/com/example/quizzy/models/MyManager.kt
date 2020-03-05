@@ -25,6 +25,7 @@ class MyManager {
 	lateinit var questionsData: List<MyQuestion>
 	lateinit var currentListQuestions: ArrayList<MyQuestion>
 	lateinit var currentScore: MyScore
+	var statusQuestionNumberVisibility: Boolean = true
 
 
 	fun serializeScore(myScore: MyScore): HashMap<String, Any?> {
@@ -41,9 +42,19 @@ class MyManager {
 		)
 	}
 
-    fun deserializeScore(map : HashMap<String, Any?>) : MyScore {
-        return MyScore(map["date"] as String?, map["first"] as Boolean?, map["second"] as Boolean?, map["third"] as Boolean?, map["fourth"] as Boolean?, map["fifth"] as Boolean?, map["correct"] as Int?, map["winrate"] as Int?, map["level"] as Int?)
-    }
+	fun deserializeScore(map: HashMap<String, Any?>): MyScore {
+		return MyScore(
+			map["date"] as String?,
+			map["first"] as Boolean?,
+			map["second"] as Boolean?,
+			map["third"] as Boolean?,
+			map["fourth"] as Boolean?,
+			map["fifth"] as Boolean?,
+			map["correct"] as Int?,
+			map["winrate"] as Int?,
+			map["level"] as Int?
+		)
+	}
 
 	fun deserializedQuestion(map: HashMap<String, Any?>): MyQuestion {
 		return MyQuestion(
@@ -70,11 +81,11 @@ class MyManager {
 
 	fun navigateToUniqueQuestion() {}
 
-    fun redirectAfterXSecondsToHome(context: Context, milliseconds : Long = 2000){
-        val r = Runnable {
-            this.navigateToWithData(HomeActivity.TAG, context)
-        }
-        val h = Handler()
+	fun redirectAfterXSecondsToHome(context: Context, milliseconds: Long = 2000) {
+		val r = Runnable {
+			this.navigateToWithData(HomeActivity.TAG, context)
+		}
+		val h = Handler()
 
 		h.postDelayed(r, milliseconds)
 	}
@@ -100,6 +111,7 @@ class MyManager {
 				currentListQuestions = intent.getParcelableArrayListExtra<MyQuestion>("myQuestions")
 				currentScore = intent.getParcelableExtra<MyScore>("myScore")
 				indexQuestion = intent.getIntExtra("indexQuestion", 10)
+                statusQuestionNumberVisibility= intent.getBooleanExtra("statusQuestionNumberVisibility", true)
 
 				Log.i(TAG, "MY QUESTIONS ARE : $currentListQuestions")
 				Log.i(TAG, "MY CURRENT SCORE IS :  $currentScore")
@@ -146,12 +158,16 @@ class MyManager {
 				context.startActivity(intent)
 			}
 			"${GameActivity.TAG}2" -> {
+
 				val intent = Intent(context, GameActivity::class.java)
+				intent.putExtra("statusQuestionNumberVisibility", false)
+
 				intent.putParcelableArrayListExtra(
 					"myQuestions",
-					question)
+					question
+				)
 				intent.putExtra("myScore", MyScore())
-				intent.putExtra("indexQuestion", indexQuestion)
+				intent.putExtra("indexQuestion", 0)
 				context.startActivity(intent)
 			}
 		}
