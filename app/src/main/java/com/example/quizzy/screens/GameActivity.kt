@@ -118,7 +118,7 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
                         1 -> score.second = userAnswer
                         2 -> score.third = userAnswer
                         3 -> score.fourth = userAnswer
-                        4 -> score.fourth = userAnswer
+                        4 -> score.fifth = userAnswer
                     }
 
                     if(manager.indexQuestion < 4 && manager.indexQuestion >= 0){

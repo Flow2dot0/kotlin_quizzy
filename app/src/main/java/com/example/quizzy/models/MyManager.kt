@@ -41,18 +41,9 @@ class MyManager {
 		)
 	}
 
-	fun deserializeScore(map: HashMap<String, Any?>): MyScore {
-		return MyScore(
-			map["date"] as String?,
-			map["first"] as Boolean?,
-			map["second"] as Boolean?,
-			map["third"] as Boolean?,
-			map["fourth"] as Boolean?,
-			map["fifth"] as Boolean?,
-			map["correct"] as Int?,
-			map["winrate"] as Int?
-		)
-	}
+    fun deserializeScore(map : HashMap<String, Any?>) : MyScore {
+        return MyScore(map["date"] as String?, map["first"] as Boolean?, map["second"] as Boolean?, map["third"] as Boolean?, map["fourth"] as Boolean?, map["fifth"] as Boolean?, map["correct"] as Int?, map["winrate"] as Int?, map["level"] as Int?)
+    }
 
 	fun deserializedQuestion(map: HashMap<String, Any?>): MyQuestion {
 		return MyQuestion(
@@ -79,14 +70,11 @@ class MyManager {
 
 	fun navigateToUniqueQuestion() {}
 
-	// BONUS
-	fun getListOfQuestionFromAPI() {}
-
-	fun redirectAfterXSecondsToHome(context: Context, milliseconds: Long = 2000) {
-		val r = Runnable {
-			this.navigateToWithData(HomeActivity.TAG, context)
-		}
-		val h = Handler()
+    fun redirectAfterXSecondsToHome(context: Context, milliseconds : Long = 2000){
+        val r = Runnable {
+            this.navigateToWithData(HomeActivity.TAG, context)
+        }
+        val h = Handler()
 
 		h.postDelayed(r, milliseconds)
 	}
