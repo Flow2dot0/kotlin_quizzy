@@ -65,7 +65,7 @@ class MyManager {
             override fun onCallback(value: List<MyQuestion>) {
                 questionsData = value
                 println("PEUT ETRE MES DATA : $questionsData")
-                currentListQuestions = questionsData as ArrayList<MyQuestion>
+                currentListQuestions = questionsData.shuffled() as ArrayList<MyQuestion>
                 navigateToWithData(context, currentListQuestions)
                 // TODO : add navigation to Game Activity
                 // TODO : transfer data to Game Activity
