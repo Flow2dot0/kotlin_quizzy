@@ -11,6 +11,10 @@ import kotlinx.android.synthetic.main.activity_results.*
 
 class ResultsActivity : AppCompatActivity() {
 
+    companion object {
+        val TAG = "ResultsActivity"
+    }
+
     private val manager = MyManager()
 
 
@@ -18,7 +22,7 @@ class ResultsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_results)
 
-        manager.retrieveDataFromNavigateToResults(intent)
+        manager.retrieveDataFromNavigate(intent, TAG)
         val score = manager.currentScore
 
         resultsLevelStatus.text = when(score.level){
@@ -28,15 +32,13 @@ class ResultsActivity : AppCompatActivity() {
             3 -> "TITAN"
             else -> "ERROR"
         }
-
         val status = "${score.correct} / 5"
         correctAnswersStatus.text = status
 
         val pourcentage = "${score.winrate} %"
         resultsPourcentage.text = pourcentage
-
+        manager.registerScoreToFirestore()
         manager.redirectAfterXSecondsToHome(this)
-
     }
 
 

@@ -3,23 +3,17 @@ package com.example.quizzy.screens
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
-import android.view.ViewGroup
-import android.view.View
 import android.widget.RadioButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.quizzy.R
 import com.example.quizzy.models.MyManager
 import com.example.quizzy.models.MyQuestion
+import com.example.quizzy.models.MyScore
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerSupportFragment
-
-import com.google.firebase.firestore.core.View
-
 import kotlinx.android.synthetic.main.activity_game.*
-
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlin.properties.Delegates
@@ -29,6 +23,7 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
 	companion object {
 		val TAG = "Game Activity"
 	}
+    private val RECOVERY_DIALOG_REQUEST = 1
 
     private val manager = MyManager()
     lateinit var currentQuestion : MyQuestion
@@ -37,12 +32,12 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
     lateinit var correct : String
     lateinit var score: MyScore
     var userAnswer by Delegates.notNull<Boolean>()
-    lateinit var youTubePlayerFragment : YouTubePlayerSupportFragmen
+    lateinit var youTubePlayerFragment : YouTubePlayerSupportFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
-        manager.retrieveDataFromNavigate(intent)
+        manager.retrieveDataFromNavigate(intent, TAG)
         youTubePlayerFragment = (supportFragmentManager.findFragmentById(R.id.third_party_player_view) as YouTubePlayerSupportFragment?)!!
         youTubePlayerFragment.initialize("AIzaSyB5hIzmoI7JANpXYWQLm4liboActq_VXUQ", this)
         updateUI()
@@ -134,7 +129,7 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
                         handleUserSelection()
                     }else{
                         // TODO : at end of list question navigate to Results Activity
-                        manager.navigateToResultsWithData(this)
+                        manager.navigateToWithData(TAG,this)
                         // TODO : then after 3 seconds navigate to HomeActivity
                     }
                 }

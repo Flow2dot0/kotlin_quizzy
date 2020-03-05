@@ -20,7 +20,7 @@ class MyManager {
     val firestore = FirestoreService()
 
     var indexQuestion : Int = 0
-	  lateinit var allQuestions: MutableList<MyQuestion>
+    lateinit var allQuestions: ArrayList<MyQuestion>
     lateinit var questionsData : List<MyQuestion>
     lateinit var currentListQuestions : ArrayList<MyQuestion>
     lateinit var currentScore: MyScore
@@ -49,7 +49,8 @@ class MyManager {
     }
 
     fun registerScoreToFirestore(){
-        //TODO :
+        var map = serializeScore(currentScore)
+        firestore.createMyScore(map)
     }
 
     fun navigateToCredits(){}
@@ -63,7 +64,7 @@ class MyManager {
 
     fun redirectAfterXSecondsToHome(context: Context, milliseconds : Long = 2000){
         val r = Runnable {
-            this.navigateToHome(context)
+            this.navigateToWithData(HomeActivity.TAG, context)
         }
         val h = Handler()
 
@@ -79,36 +80,9 @@ class MyManager {
                 // randomise the current list
                 currentListQuestions = questionsData.shuffled() as ArrayList<MyQuestion>
                 // navigate to Game Activity
-                navigateToGameWithData(context)
+                navigateToWithData(GameActivity.TAG, context)
             }
         }, indexSelected)
-
-
-    }
-
-    fun navigateToGameWithData(context: Context){
-        val intent = Intent(context, GameActivity::class.java)
-        intent.putParcelableArrayListExtra("myQuestions", currentListQuestions)
-        intent.putExtra("myScore", MyScore())
-        intent.putExtra("indexQuestion", indexQuestion)
-        context.startActivity(intent)
-    }
-
-    fun navigateToHome(context: Context){
-        val intent = Intent(context, HomeActivity::class.java)
-        context.startActivity(intent)
-    }
-
-    fun navigateToResultsWithData(context: Context){
-        val intent = Intent(context, ResultsActivity::class.java)
-        currentScore.winrate = currentScore.correct?.times(20)
-        intent.putExtra("myScore", currentScore)
-        context.startActivity(intent)
-    }
-
-    fun retrieveDataFromNavigateToResults(intent: Intent){
-        currentScore = intent.getParcelableExtra<MyScore>("myScore")
-        Log.i(TAG, "MY CURRENT SCORE IS :  $currentScore")
     }
 
 
@@ -128,28 +102,39 @@ class MyManager {
                     intent.getParcelableArrayListExtra<MyQuestion>("allQuestions") as ArrayList
                 Log.i(TAG, "allQuestions ARE : $allQuestions")
             }
+            ResultsActivity.TAG -> {
+                currentScore = intent.getParcelableExtra<MyScore>("myScore")
+                Log.i(TAG, "MY CURRENT SCORE IS :  $currentScore")
+            }
         }
 
     }
 
     fun navigateToWithData(
         activity: String,
-        context: Context,
-        questions: ArrayList<MyQuestion>?,
-        myScore: MyScore? = MyScore()
+        context: Context
     ) {
-
         when (activity) {
             GameActivity.TAG -> {
                 val intent = Intent(context, GameActivity::class.java)
-                intent.putParcelableArrayListExtra("myQuestions", questions)
-                intent.putExtra("myScore", myScore)
+                intent.putParcelableArrayListExtra("myQuestions", currentListQuestions)
+                intent.putExtra("myScore", currentScore)
                 intent.putExtra("indexQuestion", indexQuestion)
                 context.startActivity(intent)
             }
             QuestionsActivity.TAG -> {
                 val intent = Intent(context, QuestionsActivity::class.java)
-                intent.putParcelableArrayListExtra("allQuestions", questions)
+                intent.putParcelableArrayListExtra("allQuestions", allQuestions)
+                context.startActivity(intent)
+            }
+            ResultsActivity.TAG -> {
+                val intent = Intent(context, ResultsActivity::class.java)
+                currentScore.winrate = currentScore.correct?.times(20)
+                intent.putExtra("myScore", currentScore)
+                context.startActivity(intent)
+            }
+            HomeActivity.TAG -> {
+                val intent = Intent(context, HomeActivity::class.java)
                 context.startActivity(intent)
             }
         }
@@ -160,7 +145,7 @@ class MyManager {
 			override fun onCallback(value: List<MyQuestion>) {
 				allQuestions = value as ArrayList<MyQuestion>
 				Log.i(TAG, "I GET MY allQuestions FROM DB : $allQuestions")
-				navigateToWithData(QuestionsActivity.TAG, context,allQuestions as ArrayList<MyQuestion>)
+				navigateToWithData(QuestionsActivity.TAG, context)
 			}
 		})
 	}

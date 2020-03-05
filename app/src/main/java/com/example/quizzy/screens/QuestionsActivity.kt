@@ -44,7 +44,7 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
 			val question = manager.allQuestions[index]
 			Toast.makeText(this, "id: ${question.id}", Toast.LENGTH_SHORT).show()
 
-			manager.navigateToWithData(GameActivity.TAG, this, MutableList(1) { question } as ArrayList<MyQuestion>)
+			manager.navigateToWithData(GameActivity.TAG, this)
 
 		}
 	}
