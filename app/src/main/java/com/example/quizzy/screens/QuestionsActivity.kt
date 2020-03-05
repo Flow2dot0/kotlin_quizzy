@@ -15,15 +15,14 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
 	val questions = Array(100) { i ->
 		MyQuestion(
 			i,
-			"0",
+			0,
 			"path",
 			"title $i",
 			"answer",
-			"choice 1",
-			"choice 2",
-			"choice3",
-			"choice 4",
-			"choice5"
+			"A",
+			"B",
+			"C",
+			"D"
 		)
 	}
 

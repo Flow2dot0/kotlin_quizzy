@@ -21,31 +21,31 @@ class APIService {
 			.addConverterFactory(MoshiConverterFactory.create())
 			.build()
 
-		service = retrofit.create(QuestionsService::class.java)
+//		service = retrofit.create(QuestionsService::class.java)
 	}
 
-	fun getData(){
-
-		val questionRequest = service.listQuestions()
-
-		questionRequest.enqueue(object : Callback<List<ApiQuestion>> {
-
-			override fun onResponse(call: Call<List<ApiQuestion>>, response: Response<List<ApiQuestion>>) {
-
-				val allQuestions = response.body()
-				if (allQuestions != null) {
-					Log.i(TAG, "sucessfully get the data")
-					for (q in allQuestions)
-						Log.i(TAG, "question : ${q}")
-					// TODO : handle datas
-				}
-			}
-			override fun onFailure(call: Call<List<ApiQuestion>>, t: Throwable) {
-				Log.e(TAG, "error during GET protocol")
-			}
-		})
-
-	}
+//	fun getData(){
+//
+//		val questionRequest = service.listQuestions()
+//
+//		questionRequest.enqueue(object : Callback<List<ApiQuestion>> {
+//
+//			override fun onResponse(call: Call<List<ApiQuestion>>, response: Response<List<ApiQuestion>>) {
+//
+//				val allQuestions = response.body()
+//				if (allQuestions != null) {
+//					Log.i(TAG, "sucessfully get the data")
+//					for (q in allQuestions)
+//						Log.i(TAG, "question : ${q}")
+//					// TODO : handle datas
+//				}
+//			}
+//			override fun onFailure(call: Call<List<ApiQuestion>>, t: Throwable) {
+//				Log.e(TAG, "error during GET protocol")
+//			}
+//		})
+//
+//	}
 
 }
 
