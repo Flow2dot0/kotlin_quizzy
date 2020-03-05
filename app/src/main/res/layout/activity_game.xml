@@ -64,6 +64,7 @@
                 app:layout_constraintBottom_toTopOf="@id/selectOptions"
                 />
 
+
             <ImageView
                 android:visibility="invisible"
                 android:layout_width="match_parent"
@@ -142,7 +143,7 @@
                 android:textAllCaps="true"
                 android:textAlignment="textEnd"
                 android:textColor="@color/themeColor"
-                android:textSize="28sp"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/statusQuestionNumber"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

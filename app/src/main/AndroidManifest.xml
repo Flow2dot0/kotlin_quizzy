@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.quizzy">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -10,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".screens.QuestionsActivity"></activity>
+        <activity android:name=".screens.FullScreenImageActivity"></activity>
+        <activity android:name=".screens.QuestionsActivity" />
         <activity android:name=".screens.ResultsActivity" />
         <activity android:name=".screens.CreditsActivity" />
         <activity android:name=".screens.GameActivity" />
