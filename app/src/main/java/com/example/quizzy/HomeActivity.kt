@@ -66,7 +66,7 @@ class HomeActivity : AppCompatActivity() {
                     Toast.makeText(
                         this@HomeActivity,
                         "No worries, it will be fine...",
-                        Toast.LENGTH_LONG
+                        Toast.LENGTH_SHORT
                     ).show()
                 }
 
@@ -77,7 +77,7 @@ class HomeActivity : AppCompatActivity() {
                     Toast.makeText(
                         this@HomeActivity,
                         "Let's upgrade a bit the difficulty",
-                        Toast.LENGTH_LONG
+                        Toast.LENGTH_SHORT
                     ).show()
                 }
                 2 -> {
@@ -87,7 +87,7 @@ class HomeActivity : AppCompatActivity() {
                     Toast.makeText(
                         this@HomeActivity,
                         "Are you really one ?",
-                        Toast.LENGTH_LONG
+                        Toast.LENGTH_SHORT
                     ).show()
 
                 }
@@ -98,7 +98,7 @@ class HomeActivity : AppCompatActivity() {
                     Toast.makeText(
                         this@HomeActivity,
                         "At least you're already a GOD, let's see if you might be a TITAN (API Questions) ?",
-                        Toast.LENGTH_LONG
+                        Toast.LENGTH_SHORT
                     ).show()
                 }
             }

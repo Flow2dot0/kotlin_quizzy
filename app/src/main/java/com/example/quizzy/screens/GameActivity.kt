@@ -1,7 +1,11 @@
 package com.example.quizzy.screens
 
 import android.os.Bundle
+import android.util.Log
+import android.view.Gravity
+import android.view.ViewGroup
 import android.widget.RadioButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.quizzy.R
@@ -12,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_game.*
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerSupportFragment
+import com.google.firebase.firestore.core.View
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlin.properties.Delegates
@@ -20,9 +25,6 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
 
     private val TAG = "Game Activity"
     private val RECOVERY_DIALOG_REQUEST = 1
-
-    private val statusList = mutableListOf<String>("START", "REFRESHED", "COMPLETED", "FINAL")
-    private val status = statusList[0]
 
     private val manager = MyManager()
     lateinit var currentQuestion : MyQuestion
@@ -42,6 +44,8 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
         youTubePlayerFragment = (supportFragmentManager.findFragmentById(R.id.third_party_player_view) as YouTubePlayerSupportFragment?)!!
         youTubePlayerFragment.initialize("AIzaSyB5hIzmoI7JANpXYWQLm4liboActq_VXUQ", this)
         updateUI()
+        score.correct = 0
+        score.level = currentQuestion.level
         handleUserSelection()
     }
 
@@ -87,19 +91,25 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
                 if(radio.text == correct){
                     // TODO : change background color to GREEN
                     userAnswer = true
-                    Toast.makeText(this,"Correct :" +
+                    score.correct = score.correct?.plus(1)
+                    val toast = Toast.makeText(this,"Right :" +
                             " ${radio.text}",
-                        Toast.LENGTH_LONG).show()
+                        Toast.LENGTH_SHORT)
+                    toast.setGravity(Gravity.TOP or Gravity.RIGHT, 20, 20)
+                    toast.show()
+
                 }else{
                     // TODO : change background color to RED
                     userAnswer = false
-                    Toast.makeText(this,"False :" +
+                    val toast = Toast.makeText(this,"False :" +
                             " ${correct}",
-                        Toast.LENGTH_LONG).show()
+                        Toast.LENGTH_SHORT)
+                    toast.setGravity(Gravity.TOP or Gravity.RIGHT, 20, 20)
+                    toast.show()
                 }
                 runBlocking {
-                    delay(2000)
-                    nextButton.setText("NEXT")
+                    delay(500)
+                    nextButton.text = "NEXT"
                 }
 
                 nextButton.setOnClickListener {
@@ -113,11 +123,12 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
                         4 -> score.fourth = userAnswer
                     }
 
-                    if(manager.indexQuestion != 4 || manager.indexQuestion >= 0){
+                    if(manager.indexQuestion < 4 && manager.indexQuestion >= 0){
                         // TODO : increment question
                         // TODO : update UI
                         manager.indexQuestion++
                         updateUI()
+                        Log.i(TAG, "MY SCORE IS NOW : ${manager.currentScore}")
                         handleUserSelection()
                     }else{
                         // TODO : at end of list question navigate to Results Activity
@@ -128,9 +139,11 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
 
 
             }else{
+                // Redirect in case of errors to Home
                 Toast.makeText(this,"Something wrong :" +
                         " nothing selected",
                     Toast.LENGTH_LONG).show()
+                manager.redirectAfterXSecondsToHome(this, 4000)
             }
         }
     }
