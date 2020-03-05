@@ -1,11 +1,13 @@
 package com.example.quizzy.screens
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.quizzy.R
 import com.example.quizzy.models.MyManager
+import com.example.quizzy.models.MyQuestion
 import kotlinx.android.synthetic.main.activity_game.*
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
@@ -13,6 +15,7 @@ import com.google.android.youtube.player.YouTubePlayerSupportFragment
 
 class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
 
+    val TAG = "Game Activity"
     val manager = MyManager()
 
     private val RECOVERY_DIALOG_REQUEST = 1
@@ -22,9 +25,15 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
-        var isDone = View.INVISIBLE
+        val questions = intent.getParcelableArrayListExtra<MyQuestion>("data")
 
+        Log.i(TAG, "MA QUESTION est $questions")
+
+        // hide the done box result
+        var isDone = View.INVISIBLE
         card2.visibility = isDone
+
+        // init yt player
         val youTubePlayerFragment = supportFragmentManager.findFragmentById(R.id.third_party_player_view) as YouTubePlayerSupportFragment?
         youTubePlayerFragment?.initialize("AIzaSyB5hIzmoI7JANpXYWQLm4liboActq_VXUQ", this)
 

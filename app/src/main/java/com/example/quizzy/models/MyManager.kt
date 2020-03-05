@@ -1,5 +1,6 @@
 package com.example.quizzy.models
 
+import com.example.quizzy.interfaces.MyCallback
 import com.example.quizzy.services.FirestoreService
 import com.google.firebase.firestore.FieldValue
 
@@ -48,6 +49,12 @@ class MyManager {
 
     // BONUS
     fun getListOfQuestionFromAPI(){}
+
+    fun getListOfQuestionFromDB(myCallback: MyCallback, indexSelected : Int) {
+
+        firestore.getQuestionsListBasedOnLevel(myCallback, indexSelected)
+
+    }
 
     fun randomQuestions(){}
 }
