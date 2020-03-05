@@ -12,6 +12,7 @@ import com.example.quizzy.models.MyManager
 import com.example.quizzy.models.MyQuestion
 import com.example.quizzy.screens.CreditsActivity
 import com.example.quizzy.screens.GameActivity
+import com.example.quizzy.screens.QuestionsActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
 
@@ -35,6 +36,12 @@ class HomeActivity : AppCompatActivity() {
 
         playButton.setOnClickListener {
             showAlertDialog()
+        }
+
+        questionsButton.setOnClickListener {
+            showAlertDialog()
+            val intent = Intent(this, QuestionsActivity::class.java)
+            startActivity(intent)
         }
 
         aboutButton.setOnClickListener {

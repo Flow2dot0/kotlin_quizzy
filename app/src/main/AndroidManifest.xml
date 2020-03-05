@@ -3,7 +3,6 @@
     package="com.example.quizzy">
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".screens.ResultsActivity"></activity>
+        <activity android:name=".screens.QuestionsActivity"></activity>
+        <activity android:name=".screens.ResultsActivity" />
         <activity android:name=".screens.CreditsActivity" />
         <activity android:name=".screens.GameActivity" />
         <activity android:name=".HomeActivity">
