@@ -2,6 +2,7 @@ package com.example.quizzy.screens
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -42,7 +43,10 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
 		if (v?.tag != null) {
 			val index = v.tag as Int
 			val question = manager.allQuestions[index]
-			Toast.makeText(this, "id: ${question.id}", Toast.LENGTH_SHORT).show()
+			val toast = Toast.makeText(this, "id: ${question.id}", Toast.LENGTH_SHORT
+			)
+			toast.setGravity(Gravity.TOP or Gravity.RIGHT, 20, 20)
+			toast.show()
 
 			manager.question = MutableList(1) { question } as ArrayList<MyQuestion>
 
