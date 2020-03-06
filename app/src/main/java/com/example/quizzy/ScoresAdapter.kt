@@ -11,8 +11,7 @@ import com.example.quizzy.models.MyScore
 import java.text.SimpleDateFormat
 
 class ScoresAdapter(
-	val scores: List<MyScore>,
-	private val itemClickListener: View.OnClickListener
+	val scores: List<MyScore>
 ) :
 	RecyclerView.Adapter<ScoresAdapter.ViewHolder>() {
 
@@ -56,7 +55,6 @@ class ScoresAdapter(
 
 		holder.date.text = dateStr
 		holder.cardView.tag = position
-		holder.cardView.setOnClickListener(itemClickListener)
 
 		when (score.level) {
 			0 -> {

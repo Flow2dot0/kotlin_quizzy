@@ -13,7 +13,7 @@ import com.example.quizzy.models.MyManager
 import com.example.quizzy.models.MyScore
 import kotlinx.android.synthetic.main.activity_scores.*
 
-class ScoresActivity : AppCompatActivity(), View.OnClickListener {
+class ScoresActivity : AppCompatActivity() {
 
 	companion object {
 		val TAG = "ScoresActivity"
@@ -31,27 +31,12 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
 
 		Log.i("ScoresActivity", "ScoresActivity: ${manager.allScores}")
 
-		adapter = ScoresAdapter(manager.allScores, this)
+		adapter = ScoresAdapter(manager.allScores)
 
 		scores_recycler_view.layoutManager = LinearLayoutManager(this)
 		scores_recycler_view.adapter = adapter
 
 	}
 
-	override fun onClick(v: View?) {
-		if (v?.tag != null) {
-			val index = v.tag as Int
-			val score = manager.allScores[index]
-			val toast = Toast.makeText(
-				this, "scoreDate: ${score.date}", Toast.LENGTH_SHORT
-			)
-			toast.setGravity(Gravity.TOP or Gravity.RIGHT, 20, 20)
-			toast.show()
 
-			manager.score = MutableList(1) { score } as ArrayList<MyScore>
-
-			manager.navigateToWithData("${GameActivity.TAG}2", this)
-
-		}
-	}
 }
