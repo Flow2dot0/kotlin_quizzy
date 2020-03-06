@@ -2,7 +2,9 @@ package com.example.quizzy.services.FirestoreService
 
 import android.util.Log
 import com.example.quizzy.interfaces.MyCallback
+import com.example.quizzy.interfaces.MyCallbackScore
 import com.example.quizzy.models.MyQuestion
+import com.example.quizzy.models.MyScore
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FirestoreService : FirestoreServiceInterface {
@@ -39,7 +41,7 @@ class FirestoreService : FirestoreServiceInterface {
 			.addOnFailureListener { exception ->
 				Log.w(TAG, "Error getting all questions.", exception)
 			}
-		
+
 		return data
 	}
 
@@ -63,6 +65,21 @@ class FirestoreService : FirestoreServiceInterface {
 
 
 		return data
+	}
+
+	override fun getAllScores(myCallback: MyCallbackScore){
+		db.collection("scores")
+			.get()
+			.addOnSuccessListener { result ->
+				val data = result.toObjects(MyScore::class.java)
+				data.sortBy { res -> res.level }
+				Log.d(TAG, "=> ${result.toObjects(MyScore::class.java)}")
+				myCallback.onScoreReady(data)
+			}
+			.addOnFailureListener { exception ->
+				Log.w(TAG, "Error getting all questions.", exception)
+			}
+
 	}
 
 
