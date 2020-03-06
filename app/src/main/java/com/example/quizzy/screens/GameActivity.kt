@@ -7,8 +7,10 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.example.quizzy.HomeActivity
 import com.example.quizzy.R
 import com.example.quizzy.models.MyManager
 import com.example.quizzy.models.MyQuestion
@@ -219,16 +221,19 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
 				val imageView = ImageView(this)
 				Glide.with(this).load(currentQuestion.path).into(imageView)
 				linearLayout.addView(imageView)
+				linearLayout.setOnClickListener {
+					manager.pathImageToFullScreen = currentQuestion.path.toString()
+					manager.navigateToWithData(FullScreenImageActivity.TAG, this)
+				}
 			}
 		}
 
-		// path is URI
-		// on click display alert dialog with image bigger
-		// cancelable true
-
-		// path is youtube ID
 	}
-
 }
 
-
+//val alert = alertDialog.create()
+//alert.setCanceledOnTouchOutside(true)
+//alert.setOnCancelListener {
+//	loadData("getListOfQuestionFromDB")
+//}
+//alert.show()
