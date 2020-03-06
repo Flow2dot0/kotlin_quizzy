@@ -6,11 +6,10 @@ import android.os.Handler
 import android.util.Log
 import com.example.quizzy.HomeActivity
 import com.example.quizzy.interfaces.MyCallback
-import com.example.quizzy.screens.FullScreenImageActivity
-import com.example.quizzy.screens.GameActivity
-import com.example.quizzy.screens.QuestionsActivity
-import com.example.quizzy.screens.ResultsActivity
+import com.example.quizzy.interfaces.MyCallbackScore
+import com.example.quizzy.screens.*
 import com.example.quizzy.services.FirestoreService.FirestoreService
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FieldValue
 
 class MyManager {
@@ -22,11 +21,13 @@ class MyManager {
 
 	var indexQuestion: Int = 0
 	lateinit var allQuestions: ArrayList<MyQuestion>
+	lateinit var allScores: ArrayList<MyScore>
+	lateinit var score: ArrayList<MyScore>
 	lateinit var question: ArrayList<MyQuestion>
 	lateinit var questionsData: List<MyQuestion>
 	lateinit var currentListQuestions: ArrayList<MyQuestion>
 	lateinit var currentScore: MyScore
-	lateinit var pathImageToFullScreen : String
+	lateinit var pathImageToFullScreen: String
 	var statusQuestionNumberVisibility: Boolean = true
 
 
@@ -36,6 +37,7 @@ class MyManager {
 			"date" to FieldValue.serverTimestamp(),
 			"winrate" to myScore.winrate,
 			"correct" to myScore.correct,
+			"level" to myScore.level,
 			"1" to myScore.first,
 			"2" to myScore.second,
 			"3" to myScore.third,
@@ -46,7 +48,7 @@ class MyManager {
 
 	fun deserializeScore(map: HashMap<String, Any?>): MyScore {
 		return MyScore(
-			map["date"] as String?,
+			map["date"] as Timestamp?,
 			map["first"] as Boolean?,
 			map["second"] as Boolean?,
 			map["third"] as Boolean?,
@@ -114,7 +116,8 @@ class MyManager {
 				currentListQuestions = intent.getParcelableArrayListExtra<MyQuestion>("myQuestions")
 				currentScore = intent.getParcelableExtra<MyScore>("myScore")
 				indexQuestion = intent.getIntExtra("indexQuestion", 10)
-                statusQuestionNumberVisibility= intent.getBooleanExtra("statusQuestionNumberVisibility", true)
+				statusQuestionNumberVisibility =
+					intent.getBooleanExtra("statusQuestionNumberVisibility", true)
 
 				Log.i(TAG, "MY QUESTIONS ARE : $currentListQuestions")
 				Log.i(TAG, "MY CURRENT SCORE IS :  $currentScore")
@@ -124,6 +127,11 @@ class MyManager {
 				allQuestions =
 					intent.getParcelableArrayListExtra<MyQuestion>("allQuestions") as ArrayList
 				Log.i(TAG, "allQuestions ARE : $allQuestions")
+			}
+			ScoresActivity.TAG -> {
+				allScores =
+					intent.getParcelableArrayListExtra<MyScore>("allScores") as ArrayList
+				Log.i(TAG, "allScores ARE : $allScores")
 			}
 			ResultsActivity.TAG -> {
 				currentScore = intent.getParcelableExtra<MyScore>("myScore")
@@ -143,16 +151,24 @@ class MyManager {
 	) {
 		when (activity) {
 			GameActivity.TAG -> {
+				val scoreToSend = MyScore(level = indexQuestion)
+
+				Log.i("scoreToSend", scoreToSend.toString())
 				val intent = Intent(context, GameActivity::class.java)
 				intent.putExtra("statusQuestionNumberVisibility", true)
 				intent.putParcelableArrayListExtra("myQuestions", currentListQuestions)
-				intent.putExtra("myScore", MyScore())
+				intent.putExtra("myScore", scoreToSend)
 				intent.putExtra("indexQuestion", indexQuestion)
 				context.startActivity(intent)
 			}
 			QuestionsActivity.TAG -> {
 				val intent = Intent(context, QuestionsActivity::class.java)
 				intent.putParcelableArrayListExtra("allQuestions", allQuestions)
+				context.startActivity(intent)
+			}
+			ScoresActivity.TAG -> {
+				val intent = Intent(context, ScoresActivity::class.java)
+				intent.putParcelableArrayListExtra("allScores", allScores)
 				context.startActivity(intent)
 			}
 			ResultsActivity.TAG -> {
@@ -179,6 +195,7 @@ class MyManager {
 				context.startActivity(intent)
 
 			}
+
 		}
 	}
 
@@ -189,6 +206,17 @@ class MyManager {
 				Log.i(TAG, "I GET MY allQuestions FROM DB : $allQuestions")
 				navigateToWithData(QuestionsActivity.TAG, context)
 			}
+		})
+	}
+
+	fun getAllScoresFromDB(context: Context) {
+		firestore.getAllScores(object : MyCallbackScore {
+			override fun onScoreReady(value: List<MyScore>) {
+				allScores = value as ArrayList<MyScore>
+				Log.i(TAG, "I GET MY allScores FROM DB : $allScores")
+				navigateToWithData(ScoresActivity.TAG, context)
+			}
+
 		})
 	}
 

@@ -7,18 +7,15 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.example.quizzy.HomeActivity
 import com.example.quizzy.R
 import com.example.quizzy.models.MyManager
 import com.example.quizzy.models.MyQuestion
 import com.example.quizzy.models.MyScore
 import com.google.android.youtube.player.YouTubeInitializationResult
-import com.google.android.youtube.player.YouTubePlayer
+import com.google.android.youtube.player.*
 import com.google.android.youtube.player.YouTubePlayerSupportFragment
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -58,13 +55,13 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
 		score.correct = 0
 		score.level = currentQuestion.level
 		handleUserSelection()
-        levelStatus.text = when(currentQuestion.level){
-            0 -> "Newbie"
-            1 -> "Between"
-            2 -> "GOD"
-            3 -> "TITAN"
-            else -> "ERROR"
-        }
+		levelStatus.text = when (currentQuestion.level) {
+			0 -> "Newbie"
+			1 -> "Between"
+			2 -> "GOD"
+			3 -> "TITAN"
+			else -> "ERROR"
+		}
 	}
 
 	// On success
@@ -139,7 +136,7 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
 					toast.show()
 				}
 
-			if (manager.question.size == 1) {
+				if (manager.question.size == 1) {
 					manager.navigateToWithData(
 						QuestionsActivity.TAG,
 						this
@@ -209,7 +206,7 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
 
 		// TODO : detect path status
 		// set visibilities
-		when(currentQuestion.pathMode){
+		when (currentQuestion.pathMode) {
 			"YT" -> {
 				linearLayout.visibility = View.INVISIBLE
 				third_party_player_view.isVisible

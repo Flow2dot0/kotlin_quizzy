@@ -1,6 +1,7 @@
 package com.example.quizzy.services.FirestoreService
 
 import com.example.quizzy.interfaces.MyCallback
+import com.example.quizzy.interfaces.MyCallbackScore
 import com.example.quizzy.models.MyQuestion
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -19,4 +20,8 @@ interface FirestoreServiceInterface {
 		myCallback: MyCallback,
 		indexSelected: Int
 	): MutableList<MyQuestion>
+
+	fun getAllScores(myCallback: MyCallbackScore)
+
+
 }

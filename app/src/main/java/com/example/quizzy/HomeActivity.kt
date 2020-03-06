@@ -2,7 +2,6 @@ package com.example.quizzy
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Environment
 import android.text.Html
 import android.util.Log
 import android.widget.Toast
@@ -10,8 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.quizzy.models.MyManager
 import com.example.quizzy.screens.CreditsActivity
-import com.example.quizzy.screens.QuestionsActivity
-import com.example.quizzy.services.FirestoreService.FirestoreServiceStub
+import com.example.quizzy.screens.ScoresActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
 
@@ -42,6 +40,11 @@ class HomeActivity : AppCompatActivity() {
 
 		questionsButton.setOnClickListener {
 			loadData("getAllQuestionsFromDB")
+		}
+
+		scoresButton.setOnClickListener {
+			loadData("getAllScoreFromDB")
+
 		}
 
 		aboutButton.setOnClickListener {
@@ -101,12 +104,19 @@ class HomeActivity : AppCompatActivity() {
 		alert.show()
 	}
 
-	private fun loadData(params:String) {
-		if(params == "getListOfQuestionFromDB"){
-			manager.getListOfQuestionFromDB(selectedLevelIndex, this)
-		}else if(params == "getAllQuestionsFromDB"){
-			manager.getAllQuestionsFromDB(this)
+	private fun loadData(params: String) {
+
+		when (params) {
+			"getListOfQuestionFromDB" -> {
+				manager.getListOfQuestionFromDB(selectedLevelIndex, this)
+			}
+			"getAllQuestionsFromDB" -> {
+				manager.getAllQuestionsFromDB(this)
+			}	"getAllScoreFromDB" -> {
+				manager.getAllScoresFromDB(this)
+			}
 		}
+
 	}
 
 
