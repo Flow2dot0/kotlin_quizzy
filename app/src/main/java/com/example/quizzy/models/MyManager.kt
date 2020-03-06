@@ -6,6 +6,7 @@ import android.os.Handler
 import android.util.Log
 import com.example.quizzy.HomeActivity
 import com.example.quizzy.interfaces.MyCallback
+import com.example.quizzy.screens.FullScreenImageActivity
 import com.example.quizzy.screens.GameActivity
 import com.example.quizzy.screens.QuestionsActivity
 import com.example.quizzy.screens.ResultsActivity
@@ -25,6 +26,7 @@ class MyManager {
 	lateinit var questionsData: List<MyQuestion>
 	lateinit var currentListQuestions: ArrayList<MyQuestion>
 	lateinit var currentScore: MyScore
+	lateinit var pathImageToFullScreen : String
 	var statusQuestionNumberVisibility: Boolean = true
 
 
@@ -66,12 +68,13 @@ class MyManager {
 			map["A"] as String,
 			map["B"] as String,
 			map["C"] as String,
-			map["D"] as String
+			map["D"] as String,
+			map["pathMode"] as String
 		)
 	}
 
 	fun registerScoreToFirestore() {
-		var map = serializeScore(currentScore)
+		val map = serializeScore(currentScore)
 		firestore.createMyScore(map)
 	}
 
@@ -126,6 +129,10 @@ class MyManager {
 				currentScore = intent.getParcelableExtra<MyScore>("myScore")
 				Log.i(TAG, "MY CURRENT SCORE IS :  $currentScore")
 			}
+			FullScreenImageActivity.TAG -> {
+				pathImageToFullScreen = intent.getStringExtra("path")
+				Log.i(TAG, "MY PATH IMAGE :  $pathImageToFullScreen")
+			}
 		}
 
 	}
@@ -137,6 +144,7 @@ class MyManager {
 		when (activity) {
 			GameActivity.TAG -> {
 				val intent = Intent(context, GameActivity::class.java)
+				intent.putExtra("statusQuestionNumberVisibility", true)
 				intent.putParcelableArrayListExtra("myQuestions", currentListQuestions)
 				intent.putExtra("myScore", MyScore())
 				intent.putExtra("indexQuestion", indexQuestion)
@@ -158,17 +166,18 @@ class MyManager {
 				context.startActivity(intent)
 			}
 			"${GameActivity.TAG}2" -> {
-
 				val intent = Intent(context, GameActivity::class.java)
 				intent.putExtra("statusQuestionNumberVisibility", false)
-
-				intent.putParcelableArrayListExtra(
-					"myQuestions",
-					question
-				)
+				intent.putParcelableArrayListExtra("myQuestions", question)
 				intent.putExtra("myScore", MyScore())
 				intent.putExtra("indexQuestion", 0)
 				context.startActivity(intent)
+			}
+			FullScreenImageActivity.TAG -> {
+				val intent = Intent(context, FullScreenImageActivity::class.java)
+				intent.putExtra("path", pathImageToFullScreen)
+				context.startActivity(intent)
+
 			}
 		}
 	}
