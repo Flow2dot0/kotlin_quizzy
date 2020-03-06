@@ -32,6 +32,7 @@ class FirestoreService : FirestoreServiceInterface {
 			.get()
 			.addOnSuccessListener { result ->
 				data = result.toObjects(MyQuestion::class.java)
+				data.sortBy { res -> res.level }
 				Log.d(TAG, "=> ${result.toObjects(MyQuestion::class.java)}")
 				myCallback.onCallback(data)
 			}
