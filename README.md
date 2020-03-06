@@ -2,6 +2,10 @@
 
 Simple Quizz App
 
+## Diagram
+
+* [Class Diagram](https://www.draw.io/#G1PDfa8Pgz507yORdqP08TF3cj3BGgu40s)
+
 ## BlackLog
 
 * [Link](https://trello.com/b/RSWPOgEV/android-flash-card)
