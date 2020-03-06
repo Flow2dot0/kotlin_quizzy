@@ -210,7 +210,7 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
 			"YT" -> {
 				linearLayout.visibility = View.INVISIBLE
 				third_party_player_view.isVisible
-				youTubePlayerFragment.initialize("AIzaSyB5hIzmoI7JANpXYWQLm4liboActq_VXUQ", this)
+				youTubePlayerFragment.initialize("", this)
 			}
 			"IMG" -> {
 				linearLayout.visibility = View.VISIBLE
