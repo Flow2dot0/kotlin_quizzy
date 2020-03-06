@@ -32,4 +32,4 @@ Just run the app on your emulator
 ## Authors
 
 * **Florian Gustin @Flow2dot0** - [Linkedin](https://www.linkedin.com/in/florian-gustin/)
-* **Ben Grandin ** - [Linkedin](https://www.linkedin.com/in/bengrandin/)
+* **Ben Grandin @BenGrandin** - [Linkedin](https://www.linkedin.com/in/bengrandin/)
