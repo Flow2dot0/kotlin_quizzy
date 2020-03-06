@@ -69,7 +69,7 @@ class ScoresAdapter(
 				holder.icon.setImageResource(R.drawable.red_circle)
 			}
 			else -> {
-				holder.icon.setImageResource(R.drawable.ic_launcher_background)
+				holder.icon.setImageResource(R.drawable.grey_circle)
 
 			}
 		}

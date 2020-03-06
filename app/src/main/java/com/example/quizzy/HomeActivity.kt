@@ -9,7 +9,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.quizzy.models.MyManager
 import com.example.quizzy.screens.CreditsActivity
-import com.example.quizzy.screens.ScoresActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
 
@@ -112,7 +111,8 @@ class HomeActivity : AppCompatActivity() {
 			}
 			"getAllQuestionsFromDB" -> {
 				manager.getAllQuestionsFromDB(this)
-			}	"getAllScoreFromDB" -> {
+			}
+			"getAllScoreFromDB" -> {
 				manager.getAllScoresFromDB(this)
 			}
 		}

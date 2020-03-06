@@ -136,7 +136,7 @@ class GameActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
 					toast.show()
 				}
 
-				if (manager.question.size == 1) {
+				if (manager.currentListQuestions.size == 1) {
 					manager.navigateToWithData(
 						QuestionsActivity.TAG,
 						this
